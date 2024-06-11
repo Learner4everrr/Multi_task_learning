@@ -9,12 +9,14 @@ llama_list = ['chaoyi-wu/MedLLaMA_13B']
 def model_creator(*args):
 	if len(args) == 1:
 		model_name = args[0]
+		config = AutoConfig.from_pretrained(model_name)
+		config.max_position_embeddings = 4096
 		if model_name in auto_list:
 			tokenizer = AutoTokenizer.from_pretrained(model_name)
-			model = AutoModelForCausalLM.from_pretrained(model_name)
+			model = AutoModelForCausalLM.from_pretrained(model_name, config=config)
 		elif model_name in llama_list:
 			tokenizer = LlamaTokenizer.from_pretrained(model_name)
-			model = LlamaForCausalLM.from_pretrained(model_name)
+			model = LlamaForCausalLM.from_pretrained(model_name, config=config)
 		else:
 			raise ValueError(f"Unknown model name: {model_name}, not in the predefined list")
 			
