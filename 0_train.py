@@ -107,33 +107,6 @@ def train_model(args, trainingset):
 
     print("4"*50)
 
-    supervised_finetuning_trainer = SFTTrainer(
-        base_model,
-        train_dataset=trainingset,
-        # eval_dataset=test,
-        args=transformers.TrainingArguments(
-            per_device_train_batch_size=args.batch_size,
-            #per_device_eval_batch_size=args.batch_size,
-            gradient_accumulation_steps=args.gradient_accumulation_steps,
-            learning_rate=args.learning_rate,
-            # max_steps=args.max_steps,
-            num_train_epochs = 3,
-            max_grad_norm=0.3,
-            warmup_ratio=0.03,
-            output_dir=args.outputdir,
-            optim="paged_adamw_8bit",
-            fp16=True,
-            #evaluation_strategy = "steps",
-            #eval_steps = 1000,
-            # save_steps = args.save_steps,
-            #load_best_model_at_end=True,
-            save_strategy='epoch',
-        ),
-        tokenizer=tokenizer,
-        peft_config=qlora_config,
-        dataset_text_field="text",
-        max_seq_length=args.max_seq_length
-    )
     # supervised_finetuning_trainer = SFTTrainer(
     #     base_model,
     #     train_dataset=trainingset,
@@ -143,7 +116,8 @@ def train_model(args, trainingset):
     #         #per_device_eval_batch_size=args.batch_size,
     #         gradient_accumulation_steps=args.gradient_accumulation_steps,
     #         learning_rate=args.learning_rate,
-    #         max_steps=args.max_steps,
+    #         # max_steps=args.max_steps,
+    #         num_train_epochs = 3,
     #         max_grad_norm=0.3,
     #         warmup_ratio=0.03,
     #         output_dir=args.outputdir,
@@ -151,15 +125,41 @@ def train_model(args, trainingset):
     #         fp16=True,
     #         #evaluation_strategy = "steps",
     #         #eval_steps = 1000,
-    #         save_steps = args.save_steps,
+    #         # save_steps = args.save_steps,
     #         #load_best_model_at_end=True,
-    #         save_strategy='steps',
+    #         save_strategy='epoch',
     #     ),
     #     tokenizer=tokenizer,
     #     peft_config=qlora_config,
     #     dataset_text_field="text",
-    #     max_seq_length=4098
+    #     max_seq_length=args.max_seq_length
     # )
+    supervised_finetuning_trainer = SFTTrainer(
+        base_model,
+        train_dataset=trainingset,
+        # eval_dataset=test,
+        args=transformers.TrainingArguments(
+            per_device_train_batch_size=args.batch_size,
+            #per_device_eval_batch_size=args.batch_size,
+            gradient_accumulation_steps=args.gradient_accumulation_steps,
+            learning_rate=args.learning_rate,
+            max_steps=args.max_steps,
+            max_grad_norm=0.3,
+            warmup_ratio=0.03,
+            output_dir=args.outputdir,
+            optim="paged_adamw_8bit",
+            fp16=True,
+            #evaluation_strategy = "steps",
+            #eval_steps = 1000,
+            save_steps = args.save_steps,
+            #load_best_model_at_end=True,
+            save_strategy='steps',
+        ),
+        tokenizer=tokenizer,
+        peft_config=qlora_config,
+        dataset_text_field="text",
+        max_seq_length=args.max_seq_length
+    )
 
     # 在训练过程中添加调试信息
     # for i, batch in enumerate(supervised_finetuning_trainer.get_train_dataloader()):
