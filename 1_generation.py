@@ -20,7 +20,7 @@ def get_arguments():
   parser = argparse.ArgumentParser()     
   parser.add_argument('--lora_path', type=str, default='Our_model/', help='LoRA saved path')
   parser.add_argument('--testset', type=str, default='xxx.json', help='Test set file')
-  parser.add_argument('--model', type=str, default='meta-llama/Llama-2-13b-hf', help='model id')
+  parser.add_argument('--model_name', type=str, default='meta-llama/Llama-2-13b-hf', help='model id')
   parser.add_argument('--checkpoints', type=str, default="['1000', '2000', '3000', '4000', '5000']", help='checkpoint list')
   parser.add_argument('--output_dir', type=str, default='Our_model/', help='dir for saving results')
   args = parser.parse_args()
@@ -39,11 +39,12 @@ def load_model_tokenizer_w_saved_lora(args, checkpoint):
       bnb_4bit_compute_dtype=torch.bfloat16
   )
 
-  base_model = args.model
+  base_model = args.model_name
   print(type(lora_weights))
 
   tokenizer, model = model_creator(base_model, bnb_config)
-  tokenizer.add_special_tokens({'pad_token': '[PAD]'})
+  # tokenizer.add_special_tokens({'pad_token': '[PAD]'})
+  tokenizer.pad_token = tokenizer.eos_token
 
   # tokenizer=LlamaTokenizer.from_pretrained(base_model)  #, config=config, cache_dir="./llamacache"
   # model = AutoModelForCausalLM.from_pretrained(
@@ -85,8 +86,8 @@ def gen(input_test_file_name, save_file_name, model, tokenizer):
   fw=open(save_file_name,"w")
     i=0
     with open(input_test_file_name,"r",encoding="utf-8") as fr:  #path+"test_chuck_final_ICL_t2.json"
-      for line in fr.readlines():
-        line=json.loads(line.strip())
+      data = json.load(fr)
+      with line in data:
         instruction=line["instruction"]
         sentence=line["context"]
         ground_truth=line["response"]
