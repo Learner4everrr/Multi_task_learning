@@ -11,9 +11,15 @@
 # 	--learning_rate 2e-5 \
 # 	--max_seq_length 2048
 
-python 1_generation.py \
-	--lora_path saved_models/test \
-	--testset EE_genia2011_test.json \
-	--model_name meta-llama/Llama-2-7b-hf \
+# python 1_generation.py \
+# 	--lora_path saved_models/test \
+# 	--testset EE_genia2011_test.json \
+# 	--model_name meta-llama/Llama-2-7b-hf \
+# 	--checkpoints "['25', '50']" \
+# 	--output_dir outputs/Llama2test
+
+python 2_metrics.py \
 	--checkpoints "['25', '50']" \
-	--output_dir outputs/Llama2test
+	--input_dir outputs/Llama2test \
+	--output_dir results/ \
+	--save_instruct llama2-7b,5000,EE_sss.json
