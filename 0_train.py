@@ -52,6 +52,8 @@ def formatting_func(example):
 
 def prepare_data(args):
     files = args.sourcefile.split(',')
+    for file in files:
+        print('datasets/'+path+'.json')
 
     datasets = [load_dataset('json', data_files='datasets/'+path+'.json') for path in files]
     trainingset = datasets[0].concatenate(*datasets[1:])
