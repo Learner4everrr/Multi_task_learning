@@ -6,6 +6,7 @@ python 0_train.py \
 	--model_name meta-llama/Llama-2-7b-hf\
 	--max_steps 50 \
 	--save_steps 25 \
-	--batch_size 3 \
-	--gradient_accumulation_steps 4 \
-	--learning_rate 2e-5
+	--batch_size 2 \
+	--gradient_accumulation_steps 8 \
+	--learning_rate 2e-5 \
+	--max_seq_length 2048

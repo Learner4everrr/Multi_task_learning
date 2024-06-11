@@ -24,6 +24,8 @@ def read_argument():
     parser.add_argument('--batch_size', type=int, default=32, help='Training/Eval batch size')
     parser.add_argument('--gradient_accumulation_steps', type=int, default=4, help='gradient_accumulation_steps')
     parser.add_argument('--learning_rate', type=float, default=2e-5, help='learning_rate')
+    parser.add_argument('--max_seq_length', type=int, default=4096, help='max_seq_length')
+    
     # parser.add_argument('--instruction', type=str, default='instruction.txt', help='instruction file location')
     # parser.add_argument('--triever', type=str, default='facebook/contriever', help='retriver name')
     # parser.add_argument('--trainyes', action='store_true') #with --train true, without false
@@ -130,7 +132,7 @@ def train_model(args, trainingset):
         tokenizer=tokenizer,
         peft_config=qlora_config,
         dataset_text_field="text",
-        max_seq_length=2048
+        max_seq_length=args.max_seq_length
     )
     # supervised_finetuning_trainer = SFTTrainer(
     #     base_model,
