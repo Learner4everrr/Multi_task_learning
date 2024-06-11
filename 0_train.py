@@ -130,7 +130,7 @@ def train_model(args, trainingset):
         tokenizer=tokenizer,
         peft_config=qlora_config,
         dataset_text_field="text",
-        max_seq_length=4098
+        max_seq_length=2048
     )
     # supervised_finetuning_trainer = SFTTrainer(
     #     base_model,
