@@ -14,6 +14,8 @@ def read_argument():
     parser.add_argument('--sourcefiles', type=str, default='xxxx.json,xxxx1.json', help='training file list')
     parser.add_argument('--outputdir', type=str, default='yyyy.json', help='output dir')
     parser.add_argument('--model_name', type=str, default='meta-llama/Llama-2-7b-hf', help='model name')
+    parser.add_argument('--max_steps', type=int, default=5000, help='Training max steps')
+    parser.add_argument('--save_steps', type=int, default=1000, help='Save model for each steps')
     parser.add_argument('--batch_size', type=int, default=32, help='Training/Eval batch size')
     parser.add_argument('--gradient_accumulation_steps', type=int, default=4, help='gradient_accumulation_steps')
     parser.add_argument('--learning_rate', type=float, default=2e-5, help='learning_rate')
@@ -106,7 +108,7 @@ def train_model(args, trainingset):
             #per_device_eval_batch_size=args.batch_size,
             gradient_accumulation_steps=args.gradient_accumulation_steps,
             learning_rate=args.learning_rate,
-            max_steps=5000,
+            max_steps=args.max_steps,
             max_grad_norm=0.3,
             warmup_ratio=0.03,
             output_dir=args.outputdir,
@@ -114,7 +116,7 @@ def train_model(args, trainingset):
             fp16=True,
             #evaluation_strategy = "steps",
             #eval_steps = 1000,
-            save_steps = 1000,
+            save_steps = args.save_steps,
             #load_best_model_at_end=True,
             save_strategy='steps',
         ),
@@ -131,10 +133,10 @@ def train_model(args, trainingset):
 
 def main():
     args = read_argument()
-    print(args)
+    # print(args)
     trainingset = prepare_data(args)
-    print(trainingset[:20])
-    # train_model(args, trainingset)
+    # print(trainingset[:20])
+    train_model(args, trainingset)
 
 
 
