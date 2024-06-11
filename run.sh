@@ -7,5 +7,5 @@ python 0_train.py \
 	--max_steps 50 \
 	--save_steps 25 \
 	--batch_size 1\
-	--gradient_accumulation_steps 4\
+	--gradient_accumulation_steps 16 \
 	--learning_rate 2e-5
