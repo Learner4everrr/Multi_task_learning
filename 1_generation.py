@@ -26,8 +26,8 @@ def get_arguments():
   parser.add_argument('--checkpoints', type=str, default="['1000', '2000', '3000', '4000', '5000']", help='checkpoint list')
   parser.add_argument('--output_dir', type=str, default='Our_model/', help='dir for saving results')
   args = parser.parse_args()
-  if not os.path.exists(args.outputdir):
-    os.makedirs(args.outputdir, exist_ok=True)
+  if not os.path.exists(args.output_dir):
+    os.makedirs(args.output_dir, exist_ok=True)
   return args
 
 
