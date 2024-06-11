@@ -21,5 +21,5 @@
 python 2_metrics.py \
 	--checkpoints "['25', '50']" \
 	--input_dir outputs/Llama2test \
-	--output_dir results/ \
+	--output_dir results \
 	--save_instruct llama2-7b,5000,EE_sss.json

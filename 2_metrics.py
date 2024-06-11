@@ -60,7 +60,7 @@ def com_res_gold(filename):
 def save_results(args, checkpoint, all_metirc_results):
     save_instruct = args.save_instruct.split(',')
     model_name, epoch, training_set = save_instruct[0], save_instruct[1], save_instruct[2]
-    with open(args.output_dir+f'{model_name}-{epoch}-{training_set}.txt', 'a') as file:
+    with open(args.output_dir+'/'+f'{model_name}-{epoch}-{training_set}.txt', 'a') as file:
 
         # result_details = f'Model: {model_name}\nepochs/Steps: {epoch}\n' \
         #     + f"Training set list:{training_set}\n"
@@ -79,7 +79,7 @@ if __name__=="__main__":
   args.checkpoints = ast.literal_eval(args.checkpoints)
 
   for checkpoint in args.checkpoints:
-    input_file_name = args.input_dir + "test_inference_groundtruth_%s.json"%checkpoint
+    input_file_name = args.input_dir + '/' + "test_inference_groundtruth_%s.json"%checkpoint
     state_dict = com_res_gold(input_file_name)
     all_metirc_results = calclulate_f1(state_dict)
     save_results(args, checkpoint, all_metirc_results)
