@@ -130,7 +130,7 @@ def train_model(args, trainingset):
 def main():
     args = read_argument()
     print(args)
-    trainingset = load_dataset(args)
+    trainingset = prepare_data(args)
     print(trainingset)
     # train_model(args, trainingset)
 
