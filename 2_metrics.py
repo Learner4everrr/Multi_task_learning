@@ -2,6 +2,7 @@ import json
 import re
 import ast
 import argparse
+import os
 
 def get_arguments():
     parser = argparse.ArgumentParser()
