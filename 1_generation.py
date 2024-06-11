@@ -115,5 +115,5 @@ if __name__=="__main__":
   args.checkpoints = ast.literal_eval(args.checkpoints)
   for checkpoint in args.checkpoints:
     model, tokenizer = load_model_tokenizer_w_saved_lora(args, "checkpoint-%s"%checkpoint)
-    save_file_name = args.output_dir + '/' + "test_inference_groundtruth_%s.json"%number_
+    save_file_name = args.output_dir + '/' + "test_inference_groundtruth_%s.json"%checkpoint
     gen(args.testset, save_file_name, model, tokenizer)
