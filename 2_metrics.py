@@ -10,7 +10,7 @@ def get_arguments():
     parser.add_argument('--checkpoints', type=str, default="['1000', '2000', '3000', '4000', '5000']", help='checkpoint list')
     parser.add_argument('--input_dir', type=str, default='Our_model/', help='dir for saving results')
     parser.add_argument('--output_dir', type=str, default='Our_model/', help='dir for saving results')
-    parser.add_argument('--save_instruct', type=str, default='Llama2,2,EE...', help='model_name, epoch, training_set')
+    # parser.add_argument('--save_instruct', type=str, default='Llama2,2,EE...', help='model_name, epoch, training_set')
     args = parser.parse_args()
 
     if not os.path.exists(args.output_dir):
@@ -64,7 +64,8 @@ def com_res_gold(filename):
 def save_results(args, checkpoint, all_metirc_results):
     save_instruct = args.save_instruct.split(',')
     model_name, epoch, training_set = save_instruct[0], save_instruct[1], save_instruct[2]
-    with open(args.output_dir+'/'+f'{model_name}-{epoch}-{training_set}.txt', 'a') as file:
+    # with open(args.output_dir+'/'+f'{model_name}-{epoch}-{training_set}.txt', 'a') as file:
+    with open(args.output_dir+'/metric_result.txt', 'a') as file:
 
         # result_details = f'Model: {model_name}\nepochs/Steps: {epoch}\n' \
         #     + f"Training set list:{training_set}\n"
