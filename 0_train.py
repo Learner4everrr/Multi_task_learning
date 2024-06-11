@@ -6,7 +6,7 @@ import json
 from transformers import AutoTokenizer, AutoModel
 import numpy as np
 from model_creator import model_creator
-from datasets import load_dataset
+from datasets import load_dataset, concatenate_datasets
 import argparse
 
 def read_argument():
@@ -56,7 +56,9 @@ def prepare_data(args):
         print(file)
 
     datasets = [load_dataset('json', data_files='datasets/'+file+'.json') for file in files]
-    trainingset = datasets[0].concatenate(*datasets[1:])
+    # trainingset = datasets[0].concatenate(*datasets[1:])
+    trainingset = concatenate_datasets(datasets)
+
 
     # for file in files:
     #     data = load_dataset("json", data_files=file)
