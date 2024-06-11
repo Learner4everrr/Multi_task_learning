@@ -3,6 +3,7 @@ sys.path.append('utilities')
 import os
 import torch
 import json
+import transformers
 from transformers import AutoTokenizer, AutoModel
 import numpy as np
 from model_creator import model_creator
