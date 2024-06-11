@@ -13,6 +13,7 @@ import sentencepiece
 import accelerate
 import json
 import datetime
+import ast
 
 import argparse
 
@@ -111,7 +112,8 @@ def gen(input_test_file_name, save_file_name, model, tokenizer):
 if __name__=="__main__":
   args = get_arguments()
   # checkpoints =  ['1000', '2000', '3000', '4000', '5000']
-  for checkpoint in json.load(args.checkpoints):
+  args.checkpoints = ast.literal_eval(args.checkpoints)
+  for checkpoint in args.checkpoints:
     model, tokenizer = load_model_tokenizer_w_saved_lora(args, "checkpoint-%s"%checkpoint)
     save_file_name = args.output_dir + '/' + "test_inference_groundtruth_%s.json"%number_
     gen(args.testset, save_file_name, model, tokenizer)
