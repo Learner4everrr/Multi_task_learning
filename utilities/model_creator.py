@@ -9,7 +9,7 @@ llama_list = ['chaoyi-wu/MedLLaMA_13B']
 def model_creator(*args):
 	model_name = args[0]
 	config = AutoConfig.from_pretrained(model_name)
-	config.max_position_embeddings = 4096
+	# config.max_position_embeddings = 4096
 	if len(args) == 1:
 		if model_name in auto_list:
 			tokenizer = AutoTokenizer.from_pretrained(model_name)
