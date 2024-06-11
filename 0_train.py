@@ -55,7 +55,7 @@ def prepare_data(args):
     for file in files:
         print(file)
 
-    datasets = [load_dataset('json', data_files='datasets/'+file+'.json') for file in files]
+    datasets = [load_dataset('json', data_files='datasets/'+file+'.json')['train'] for file in files]
     # trainingset = datasets[0].concatenate(*datasets[1:])
     trainingset = concatenate_datasets(datasets)
 
