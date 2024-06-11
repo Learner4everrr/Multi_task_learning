@@ -131,6 +131,14 @@ def train_model(args, trainingset):
         max_seq_length=4098
     )
 
+    # 在训练过程中添加调试信息
+    for i, batch in enumerate(supervised_finetuning_trainer.get_train_dataloader()):
+        print(f"Batch {i}: {batch}")
+        if i == 0:
+            inputs = {k: v.to('cuda') for k, v in batch.items()}
+            outputs = base_model(**inputs)
+            print(f"Output shape: {outputs[0].shape}")
+
 
     supervised_finetuning_trainer.train()
 
