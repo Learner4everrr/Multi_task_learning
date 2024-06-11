@@ -100,6 +100,7 @@ def train_model(args, trainingset):
 
     # tokenizer = AutoTokenizer.from_pretrained(model_id)
     # tokenizer.add_special_tokens({'pad_token': '[PAD]'})
+    tokenizer.pad_token = tokenizer.eos_token
     # tokenizer.add_special_tokens({'end_token': '[END]'})
 
     print("4"*50)
