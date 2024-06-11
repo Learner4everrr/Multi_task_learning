@@ -110,7 +110,7 @@ def train_model(args, trainingset):
         train_dataset=trainingset,
         # eval_dataset=test,
         args=transformers.TrainingArguments(
-            # per_device_train_batch_size=args.batch_size,
+            per_device_train_batch_size=args.batch_size,
             #per_device_eval_batch_size=args.batch_size,
             gradient_accumulation_steps=args.gradient_accumulation_steps,
             learning_rate=args.learning_rate,
