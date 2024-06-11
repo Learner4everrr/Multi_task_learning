@@ -84,28 +84,28 @@ def make_inference(instruction, context = None):
 
 def gen(input_test_file_name, save_file_name, model, tokenizer):
   fw=open(save_file_name,"w")
-    i=0
-    with open(input_test_file_name,"r",encoding="utf-8") as fr:  #path+"test_chuck_final_ICL_t2.json"
-      data = json.load(fr)
-      with line in data:
-        instruction=line["instruction"]
-        sentence=line["context"]
-        ground_truth=line["response"]
-        predicted=make_inference(instruction,sentence)
-        i=i+1
-        print(i)
-        
-        Dic_={}
-        Dic_["sentence"]=sentence
-        Dic_["ground_truth"]=ground_truth
-        Dic_["predicted"]=predicted
+  i=0
+  with open(input_test_file_name,"r",encoding="utf-8") as fr:  #path+"test_chuck_final_ICL_t2.json"
+    data = json.load(fr)
+    for line in data:
+      instruction=line["instruction"]
+      sentence=line["context"]
+      ground_truth=line["response"]
+      predicted=make_inference(instruction,sentence)
+      i=i+1
+      print(i)
+      
+      Dic_={}
+      Dic_["sentence"]=sentence
+      Dic_["ground_truth"]=ground_truth
+      Dic_["predicted"]=predicted
 
-        fw.write(json.dumps(Dic_))
-        fw.flush()
-        fw.write("\n")
+      fw.write(json.dumps(Dic_))
+      fw.flush()
+      fw.write("\n")
 
-    fw.close()
-    print(datetime.datetime.now())
+  fw.close()
+  print(datetime.datetime.now())
 
 
 if __name__=="__main__":
