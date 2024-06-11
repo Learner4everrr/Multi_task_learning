@@ -22,16 +22,16 @@ def model_creator(*args):
 			
 	else:
 		bnb_config = args[1]
-		if model_id in auto_list:
-			tokenizer = AutoTokenizer.from_pretrained(model_id)
+		if model_name in auto_list:
+			tokenizer = AutoTokenizer.from_pretrained(model_name)
 			model = AutoModelForCausalLM.from_pretrained(
-			    model_id,
+			    model_name,
 			    quantization_config=bnb_config,torch_dtype=torch.float16, device_map='auto', config=config
 			)
-		elif model_id in llama_list:
-			tokenizer = LlamaTokenizer.from_pretrained(model_id)
+		elif model_name in llama_list:
+			tokenizer = LlamaTokenizer.from_pretrained(model_name)
 			model = LlamaForCausalLM.from_pretrained(
-			    model_id,
+			    model_name,
 			    quantization_config=bnb_config,torch_dtype=torch.float16, device_map='auto', config=config
 			)
 		else:
