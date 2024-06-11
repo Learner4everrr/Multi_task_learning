@@ -93,7 +93,7 @@ def gen(input_test_file_name, save_file_name, model, tokenizer):
     data = json.load(fr)
     for line in data:
       instruction=line["instruction"]
-      sentence=line["context"]
+      sentence=line["inputsentence"]
       ground_truth=line["response"]
       predicted=make_inference(instruction,sentence)
       i=i+1
