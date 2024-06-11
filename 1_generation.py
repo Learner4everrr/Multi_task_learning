@@ -89,7 +89,7 @@ def make_inference(instruction, context = None):
 def gen(input_test_file_name, save_file_name, model, tokenizer):
   fw=open(save_file_name,"w")
   i=0
-  with open(input_test_file_name,"r",encoding="utf-8") as fr:  #path+"test_chuck_final_ICL_t2.json"
+  with open('datasets/'+input_test_file_name,"r",encoding="utf-8") as fr:  #path+"test_chuck_final_ICL_t2.json"
     data = json.load(fr)
     for line in data:
       instruction=line["instruction"]
