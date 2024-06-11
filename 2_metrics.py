@@ -50,6 +50,9 @@ def com_res_gold(filename):
             predictions=line["predicted"].split("\n\n### Response: \n")[1].split("\n")[0]
             predictions_t = predictions.split(", ")
             print(predictions_t)
+            print()
+            print(line["predicted"])
+            print()
 
             state_dict["p"] += len(P)
             state_dict["g"] += len(gold)
