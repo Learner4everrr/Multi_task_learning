@@ -3,7 +3,7 @@ from transformers import LlamaTokenizer, LlamaForCausalLM
 import torch
 
 auto_list = ['meta-llama/Llama-2-13b-hf', 'medalpaca/medalpaca-13b', 'ncbi/MedCPT-Query-Encoder', 'facebook/contriever',\
-							'meta-llama/Meta-Llama-3-8B-Instruct']
+							'meta-llama/Meta-Llama-3-8B-Instruct', 'meta-llama/Llama-2-7b-hf']
 llama_list = ['chaoyi-wu/MedLLaMA_13B']
 
 def model_creator(*args):
@@ -15,6 +15,8 @@ def model_creator(*args):
 		elif model_name in llama_list:
 			tokenizer = LlamaTokenizer.from_pretrained(model_name)
 			model = LlamaForCausalLM.from_pretrained(model_name)
+		else:
+			raise ValueError(f"Unknown model name: {model_name}, not in the predefined list")
 			
 	else:
 		model_id = args[0]
@@ -31,6 +33,8 @@ def model_creator(*args):
 			    model_id,
 			    quantization_config=bnb_config,torch_dtype=torch.float16, device_map='auto',
 			)
+		else:
+			raise ValueError(f"Unknown model name: {model_name}, not in the predefined list")
 
 
 	return tokenizer, model
