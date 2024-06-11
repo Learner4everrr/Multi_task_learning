@@ -81,9 +81,9 @@ def save_results(args, checkpoint, all_metirc_results):
 
 if __name__=="__main__":
   args = get_arguments()
-  args.checkpoints = ast.literal_eval(args.checkpoints)
+  # args.checkpoints = ast.literal_eval(args.checkpoints)
 
-  for checkpoint in args.checkpoints:
+  for checkpoint in args.checkpoints.split(','):
     input_file_name = args.input_dir + '/' + "test_inference_groundtruth_%s.json"%checkpoint
     state_dict = com_res_gold(input_file_name)
     all_metirc_results = calclulate_f1(state_dict)
