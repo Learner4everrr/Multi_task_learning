@@ -129,8 +129,9 @@ def train_model(args, trainingset):
 
 def main():
     args = read_argument()
-    trainingset = load_dataset(args)
-    print(trainingset)
+    print(args)
+    # trainingset = load_dataset(args)
+    # print(trainingset)
     # train_model(args, trainingset)
 
 
