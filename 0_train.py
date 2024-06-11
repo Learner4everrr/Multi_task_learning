@@ -11,7 +11,7 @@ import argparse
 
 def read_argument():
     parser = argparse.ArgumentParser()
-    parser.add_argument('--sourcefile', type=str, default='xxxx.json,xxxx1.json', help='training file list')
+    parser.add_argument('--sourcefiles', type=str, default='xxxx.json,xxxx1.json', help='training file list')
     parser.add_argument('--outputdir', type=str, default='yyyy.json', help='output dir')
     parser.add_argument('--model_name', type=str, default='meta-llama/Llama-2-7b-hf', help='model name')
     parser.add_argument('--batch_size', type=int, default=32, help='Training/Eval batch size')
@@ -51,11 +51,11 @@ def formatting_func(example):
 
 
 def prepare_data(args):
-    files = args.sourcefile.split(',')
+    files = args.sourcefiles.split(',')
     for file in files:
-        print('datasets/'+path+'.json')
+        print(file)
 
-    datasets = [load_dataset('json', data_files='datasets/'+path+'.json') for path in files]
+    datasets = [load_dataset('json', data_files='datasets/'+file+'.json') for file in files]
     trainingset = datasets[0].concatenate(*datasets[1:])
 
     # for file in files:
@@ -130,8 +130,8 @@ def train_model(args, trainingset):
 def main():
     args = read_argument()
     print(args)
-    # trainingset = load_dataset(args)
-    # print(trainingset)
+    trainingset = load_dataset(args)
+    print(trainingset)
     # train_model(args, trainingset)
 
 
