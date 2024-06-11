@@ -39,6 +39,7 @@ def com_res_gold(filename):
 
             P=set()
             gold=set()
+            print(line["predicted"])
 
             sentence=line["sentence"].lower()
             ground_truth=line["ground_truth"]
@@ -51,7 +52,7 @@ def com_res_gold(filename):
             predictions_t = predictions.split(", ")
             print(predictions_t)
             print()
-            print(line["predicted"])
+            
             print()
 
             state_dict["p"] += len(P)
