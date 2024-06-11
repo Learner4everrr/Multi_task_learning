@@ -7,6 +7,10 @@ from transformers import AutoTokenizer, AutoModel
 import numpy as np
 from model_creator import model_creator
 from datasets import load_dataset, concatenate_datasets
+from peft import LoraConfig
+from transformers import AutoModelForCausalLM, BitsAndBytesConfig, AutoTokenizer
+from transformers import LlamaTokenizer
+from trl import SFTTrainer
 import argparse
 
 def read_argument():
