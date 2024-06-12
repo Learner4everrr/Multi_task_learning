@@ -3,9 +3,10 @@
 # meta-llama/Meta-Llama-3-8B-Instruct
 # "meta-llama/Llama-2-7b-hf"
 
+# EE_genia2011,EE_phee,NER_bc5cdr
 
 MODEL_NAME="meta-llama/Meta-Llama-3-8B-Instruct"
-INPUT_FILES="EE_genia2011,EE_phee,NER_bc5cdr"
+INPUT_FILES="RE_BioRED"
 TRAINING_FILES=$(echo $INPUT_FILES | sed 's/,/ /g' | awk '{for(i=1;i<=NF;i++) printf("%s_train%s", $i, (i==NF?"":","))}')
 
 MAX_STEPS=1000
