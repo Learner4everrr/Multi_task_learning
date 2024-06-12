@@ -62,8 +62,8 @@ def com_res_gold(filename):
     return state_dict
 
 def save_results(args, checkpoint, all_metirc_results):
-    save_instruct = args.save_instruct.split(',')
-    model_name, epoch, training_set = save_instruct[0], save_instruct[1], save_instruct[2]
+    # save_instruct = args.save_instruct.split(',')
+    # model_name, epoch, training_set = save_instruct[0], save_instruct[1], save_instruct[2]
     # with open(args.output_dir+'/'+f'{model_name}-{epoch}-{training_set}.txt', 'a') as file:
     with open(args.output_dir+'/metric_result.txt', 'a') as file:
 
