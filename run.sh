@@ -9,8 +9,8 @@ MODEL_NAME="meta-llama/Meta-Llama-3-8B-Instruct"
 INPUT_FILES="RE_BioRED"
 TRAINING_FILES=$(echo $INPUT_FILES | sed 's/,/ /g' | awk '{for(i=1;i<=NF;i++) printf("%s_train%s", $i, (i==NF?"":","))}')
 
-MAX_STEPS=1000
-SAVE_STEPS=500
+MAX_STEPS=5000
+SAVE_STEPS=1000
 BATCH_SIZE=1
 GRADIENT_ACCUMULATION_STEPS=16
 LEARNING_RATE=2e-5
