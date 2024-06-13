@@ -8,5 +8,5 @@ fi
 
 # 提交指定数量的 submit.sh 文件
 for i in $(seq 1 $1); do
-    sbatch submit$i.sh
+    sbatch submit_$i.sh
 done
