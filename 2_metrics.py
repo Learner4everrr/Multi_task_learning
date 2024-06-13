@@ -51,6 +51,8 @@ def com_res_gold(filename):
             predictions=line["predicted"].split("\n\n### Response: \n")[1].split("\n")[0].strip()
             predictions_t = predictions.split(", ")
             print(predictions_t)
+            for prediction in predictions_t:
+                P.add(prediction)
             print()
             
             print()
