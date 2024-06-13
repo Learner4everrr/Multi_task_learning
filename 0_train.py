@@ -59,22 +59,43 @@ def formatting_func(example):
   return {"text" : input_prompt}
 
 
+# def prepare_data(args):
+#     files = args.sourcefiles.split(',')
+#     for file in files:
+#         print(file)
+
+#     datasets = [load_dataset('json', data_files='datasets/'+file+'.json')['train'] for file in files]
+#     # trainingset = datasets[0].concatenate(*datasets[1:])
+#     trainingset = concatenate_datasets(datasets)
+
+
+#     # for file in files:
+#     #     data = load_dataset("json", data_files=file)
+#     #     formatted_data = data.map(formatting_func)
+
+#     #     print( formatted_data["train"])
+#     #     trainingset += formatted_data
+#     return trainingset.shuffle(seed=42).map(formatting_func)
+
 def prepare_data(args):
     files = args.sourcefiles.split(',')
-    for file in files:
-        print(file)
-
+    
+    # Load datasets
     datasets = [load_dataset('json', data_files='datasets/'+file+'.json')['train'] for file in files]
-    # trainingset = datasets[0].concatenate(*datasets[1:])
-    trainingset = concatenate_datasets(datasets)
+    
+    if len(datasets) == 1:
+        trainingset = datasets[0]
+    else:
+        # Calculate total number of samples needed from each dataset
+        samples_per_dataset = 5000 // len(datasets)
+        
+        # Sample from each dataset
+        sampled_datasets = [dataset.shuffle(seed=42).select(range(samples_per_dataset)) for dataset in datasets]
+        
+        # Concatenate sampled datasets
+        trainingset = concatenate_datasets(sampled_datasets)
 
-
-    # for file in files:
-    #     data = load_dataset("json", data_files=file)
-    #     formatted_data = data.map(formatting_func)
-
-    #     print( formatted_data["train"])
-    #     trainingset += formatted_data
+    # Shuffle and format the final dataset
     return trainingset.shuffle(seed=42).map(formatting_func)
 
 
