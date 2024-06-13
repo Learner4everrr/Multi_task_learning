@@ -7,7 +7,7 @@ auto_list = ['meta-llama/Llama-2-13b-hf', 'medalpaca/medalpaca-13b', 'ncbi/MedCP
 llama_list = ['chaoyi-wu/MedLLaMA_13B']
 
 def model_creator(*args):
-	max_length = 4096
+	max_length = 1024
 	model_name = args[0]
 	config = AutoConfig.from_pretrained(model_name)
 	# config.max_position_embeddings = 4096
