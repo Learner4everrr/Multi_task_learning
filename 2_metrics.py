@@ -33,7 +33,9 @@ def com_res_gold(filename):
     i=-1
     with open(filename, "r", encoding="utf-8") as fr:
         for line in fr.readlines():
-            # line=line.strip()
+            line=line.strip()
+            if line is None:
+                continue
             line=json.loads(line)
             i=i+1
 
