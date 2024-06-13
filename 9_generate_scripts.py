@@ -89,7 +89,7 @@ bash {run_script} > result
 # 创建.sh文件
 for i, input_files in enumerate(input_files_list[:12], 1):
     run_filename = f"run_{i}.sh"
-    submit_filename = f"submit_{i}.sh"
+    submit_filename = f"job_{i}.sh"
     
     # 生成 run.sh 文件
     with open(run_filename, 'w') as f:
