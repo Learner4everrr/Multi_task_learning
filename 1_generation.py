@@ -15,6 +15,7 @@ import json
 import datetime
 import ast
 import os
+import random
 
 import argparse
 
@@ -85,12 +86,19 @@ def make_inference(instruction, context = None):
       # print(results)
       # print("---- NON-INSTRUCT-TUNED-MODEL ----")
 
+def sample_list(input_list, number_=1000):
+    if len(input_list) > number_:
+        return random.sample(input_list, number_)
+    else:
+        return input_list
+
 
 def gen(input_test_file_name, save_file_name, model, tokenizer):
   fw=open(save_file_name,"w")
   i=0
   with open('datasets/'+input_test_file_name+'.json',"r",encoding="utf-8") as fr:  #path+"test_chuck_final_ICL_t2.json"
     data = json.load(fr)
+    data = sample_list(data, number_=1000)
     for line in data:
       instruction=line["instruction"]
       sentence=line["inputsentence"]
