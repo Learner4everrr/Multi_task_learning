@@ -2,7 +2,7 @@ import itertools
 
 pre_input_files = [
     "RE_BioRED", "RE_DDI", "RE_git", \
-    "EE_genia2011", "EE_phee", "NER_bc5cdr", \
+    "EE_genia2011", "EE_phee", "EE_genia2013", \
     "NER_bc2gm", "NER_bc4chemd", "NER_bc5cdr", \
     "TC_ade", "TC_healthadvice", "TC_pubmed20krct"
 ]

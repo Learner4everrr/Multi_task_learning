@@ -69,18 +69,18 @@ def load_model_tokenizer_w_saved_lora(args, checkpoint):
 
 
 
-def make_inference(instruction, context = None):
+def make_inference(instruction, max_new_tokens, context = None):
   if context:
     prompt = f"Below is an instruction that describes a task, paired with an input that provides further context.\n\n### Instruction: \n{instruction}\n\n### Input: \n{context}\n\n### Response: \n"
   else:
     prompt = f"Below is an instruction that describes a task. Write a response that appropriately completes the request.\n\n### Instruction: \n{instruction}\n\n### Response: \n"
   inputs = tokenizer(prompt, return_tensors="pt", return_token_type_ids=False,max_length=1500).to("cuda:0")
-  # outputs = base_model.generate(**inputs, max_new_tokens=100)
+  # outputs = base_model.generate(**inputs, max_new_tokens=max_new_tokens)
   # display(Markdown((tokenizer.decode(outputs[0], skip_special_tokens=True))))
   # model.zero()
   model.eval()
   with torch.no_grad():
-      outputs = model.generate(**inputs, max_new_tokens=100,temperature=0.1)
+      outputs = model.generate(**inputs, max_new_tokens=max_new_tokens,temperature=0.1)
       results=(tokenizer.decode(outputs[0], skip_special_tokens=True))
       return results
       # print(results)
@@ -92,8 +92,19 @@ def sample_list(input_list, number_=1000):
     else:
         return input_list
 
+def get_max_new_tokens(input_test_file_name):
+  if 'NER_' in input_test_file_name:
+    return 200
+  elif 'RE_' in input_test_file_name:
+    return 30
+  elif 'TC_' in input_test_file_name:
+    return 10
+  elif 'EE_' in input_test_file_name:
+    return 10
 
 def gen(input_test_file_name, save_file_name, model, tokenizer):
+  max_new_tokens = get_max_new_tokens(input_test_file_name)
+
   fw=open(save_file_name,"w")
   i=0
   with open('datasets/'+input_test_file_name+'.json',"r",encoding="utf-8") as fr:  #path+"test_chuck_final_ICL_t2.json"
@@ -103,7 +114,7 @@ def gen(input_test_file_name, save_file_name, model, tokenizer):
       instruction=line["instruction"]
       sentence=line["inputsentence"]
       ground_truth=line["response"]
-      predicted=make_inference(instruction,sentence)
+      predicted=make_inference(instruction,max_new_tokens,sentence)
       i=i+1
       print(i)
       
