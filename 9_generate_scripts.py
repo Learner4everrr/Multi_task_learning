@@ -55,31 +55,31 @@ python 0_train.py \\
     --learning_rate $LEARNING_RATE \\
     --max_seq_length $MAX_SEQ_LENGTH
 
-for FILE in "${{FILES[@]}}"; do
-    test_file="${{FILE}}_test"
-    OUTPUT_DIR_GENERATION="outputs/${{base_file}}_FOR_${{FILE}}"
+# for FILE in "${{FILES[@]}}"; do
+#     test_file="${{FILE}}_test"
+#     OUTPUT_DIR_GENERATION="outputs/${{base_file}}_FOR_${{FILE}}"
 
-    python 1_generation.py \\
-        --lora_path $OUTPUT_DIR \\
-        --testset $test_file \\
-        --model_name $MODEL_NAME \\
-        --checkpoints $CHECKPOINTS \\
-        --output_dir $OUTPUT_DIR_GENERATION
+#     python 1_generation.py \\
+#         --lora_path $OUTPUT_DIR \\
+#         --testset $test_file \\
+#         --model_name $MODEL_NAME \\
+#         --checkpoints $CHECKPOINTS \\
+#         --output_dir $OUTPUT_DIR_GENERATION
 
-    python 2_metrics.py \\
-        --checkpoints $CHECKPOINTS \\
-        --input_dir $OUTPUT_DIR_GENERATION \\
-        --output_dir $OUTPUT_DIR_GENERATION
-done
+#     python 2_metrics.py \\
+#         --checkpoints $CHECKPOINTS \\
+#         --input_dir $OUTPUT_DIR_GENERATION \\
+#         --output_dir $OUTPUT_DIR_GENERATION
+# done
 """
 
 # submit.sh 的模板
 submit_template = """#!/bin/bash
 #SBATCH --nodes=1
-#SBATCH -p a100-4,agsmall,ag2tb,a100-8,amdsmall,amdlarge,amd512,amd2tb
+#SBATCH -p dos-chs,a100-4,agsmall,ag2tb,a100-8,amdsmall,amdlarge,amd512,amd2tb
 #SBATCH --gres=gpu:a100:1
 #SBATCH --mem=150g
-#SBATCH --time=48:00:00
+#SBATCH --time=24:00:00
 #SBATCH --mail-type=ALL
 #SBATCH --mail-user=zhan8023@umn.edu
 
