@@ -7,6 +7,9 @@ pre_input_files = [
     "TC_ade", "TC_healthadvice", "TC_pubmed20krct"
 ]
 
+pre_input_files = [
+    "RE_BioRED", "RE_DDI", "RE_git"
+]
 
 # 生成所有组合
 input_files_list = []
@@ -73,10 +76,10 @@ done
 # submit.sh 的模板
 submit_template = """#!/bin/bash
 #SBATCH --nodes=1
-#SBATCH -p dos-chs,a100-4,agsmall,ag2tb,a100-8
+#SBATCH -p a100-4,agsmall,ag2tb,a100-8,amdsmall,amdlarge,amd512,amd2tb
 #SBATCH --gres=gpu:a100:1
 #SBATCH --mem=150g
-#SBATCH --time=24:00:00
+#SBATCH --time=48:00:00
 #SBATCH --mail-type=ALL
 #SBATCH --mail-user=zhan8023@umn.edu
 
@@ -87,7 +90,8 @@ bash {run_script} > result
 """
 
 # 创建.sh文件
-for i, input_files in enumerate(input_files_list[:12], 1):
+off_set = 20
+for i, input_files in enumerate(input_files_list, 1):
     run_filename = f"run_{i}.sh"
     submit_filename = f"job_{i}.sh"
     

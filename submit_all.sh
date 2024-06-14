@@ -7,6 +7,6 @@ if [ -z "$1" ]; then
 fi
 
 # 提交指定数量的 submit.sh 文件
-for i in $(seq 1 $1); do
+for i in $(seq $1 $2); do
     sbatch submit_$i.sh
 done

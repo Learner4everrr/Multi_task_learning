@@ -92,14 +92,14 @@ def sample_list(input_list, number_=1000):
     else:
         return input_list
 
-def get_max_new_tokens(input_test_file_name):
-  if 'NER_' in input_test_file_name:
+def get_max_new_tokens(file_name):
+  if 'NER_' in file_name:
     return 200
-  elif 'RE_' in input_test_file_name:
-    return 30
-  elif 'TC_' in input_test_file_name:
+  elif 'RE_' in file_name:
+    return 20
+  elif 'TC_' in file_name:
     return 10
-  elif 'EE_' in input_test_file_name:
+  elif 'EE_' in file_name:
     return 10
 
 def gen(input_test_file_name, save_file_name, model, tokenizer):
