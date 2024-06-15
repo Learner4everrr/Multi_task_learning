@@ -121,7 +121,7 @@ echo "Starting the generation and metrics scripts"
 
 for FILE in "${{FILES[@]}}"; do
     test_file="${{FILE}}_test"
-    OUTPUT_DIR_GENERATION="outputs/${{base_file}}_FOR_${{FILE}}"
+    OUTPUT_DIR_GENERATION="outputs/{output_dir}${{base_file}}_FOR_${{FILE}}"
 
     python 1_generation.py \\
         --lora_path $OUTPUT_DIR \\
