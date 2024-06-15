@@ -11,6 +11,10 @@ pre_input_files = [
     "RE_BioRED", "RE_DDI", "RE_git"
 ]
 
+pre_input_files = [
+    "EE_genia2011", "EE_phee", "EE_genia2013"
+]
+
 # 生成所有组合
 input_files_list = []
 for i in range(1, len(pre_input_files) + 1):
@@ -90,7 +94,7 @@ bash {run_script} > result
 """
 
 # 创建.sh文件
-off_set = 20
+off_set = 30
 for i, input_files in enumerate(input_files_list, 1):
     run_filename = f"run_{i+off_set}.sh"
     submit_filename = f"job_{i+off_set}.sh"
