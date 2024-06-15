@@ -105,14 +105,35 @@ def prepare_data(args):
     # datasets = [load_dataset('json', data_files='datasets/'+file+'.json')['train'] for file in files]
     datasets = [file_2_dataset('datasets/'+file+'.json') for file in files]
 
+    # if len(datasets) == 1:
+    #     trainingset = datasets[0]
+    # else:
+    #     # Calculate total number of samples needed from each dataset
+    #     samples_per_dataset = 5000 // len(datasets)
+        
+    #     # Sample from each dataset
+    #     sampled_datasets = [dataset.shuffle(seed=42).select(range(samples_per_dataset)) for dataset in datasets]
+        
+    #     # Concatenate sampled datasets
+    #     trainingset = concatenate_datasets(sampled_datasets)
+
     if len(datasets) == 1:
         trainingset = datasets[0]
     else:
         # Calculate total number of samples needed from each dataset
         samples_per_dataset = 5000 // len(datasets)
         
-        # Sample from each dataset
-        sampled_datasets = [dataset.shuffle(seed=42).select(range(samples_per_dataset)) for dataset in datasets]
+        # Sample from each dataset, allowing for repeated sampling if necessary
+        sampled_datasets = []
+        for dataset in datasets:
+            if len(dataset) < samples_per_dataset:
+                # If dataset has fewer samples than needed, allow for repeated sampling
+                indices = random.choices(range(len(dataset)), k=samples_per_dataset)
+            else:
+                # If dataset has enough samples, perform a random non-repeating sample
+                indices = random.sample(range(len(dataset)), k=samples_per_dataset)
+            sampled_dataset = dataset.select(indices)
+            sampled_datasets.append(sampled_dataset)
         
         # Concatenate sampled datasets
         trainingset = concatenate_datasets(sampled_datasets)
