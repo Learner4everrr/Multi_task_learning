@@ -55,22 +55,22 @@ python 0_train.py \\
     --learning_rate $LEARNING_RATE \\
     --max_seq_length $MAX_SEQ_LENGTH
 
-# for FILE in "${{FILES[@]}}"; do
-#     test_file="${{FILE}}_test"
-#     OUTPUT_DIR_GENERATION="outputs/${{base_file}}_FOR_${{FILE}}"
+for FILE in "${{FILES[@]}}"; do
+    test_file="${{FILE}}_test"
+    OUTPUT_DIR_GENERATION="outputs/${{base_file}}_FOR_${{FILE}}"
 
-#     python 1_generation.py \\
-#         --lora_path $OUTPUT_DIR \\
-#         --testset $test_file \\
-#         --model_name $MODEL_NAME \\
-#         --checkpoints $CHECKPOINTS \\
-#         --output_dir $OUTPUT_DIR_GENERATION
+    python 1_generation.py \\
+        --lora_path $OUTPUT_DIR \\
+        --testset $test_file \\
+        --model_name $MODEL_NAME \\
+        --checkpoints $CHECKPOINTS \\
+        --output_dir $OUTPUT_DIR_GENERATION
 
-#     python 2_metrics.py \\
-#         --checkpoints $CHECKPOINTS \\
-#         --input_dir $OUTPUT_DIR_GENERATION \\
-#         --output_dir $OUTPUT_DIR_GENERATION
-# done
+    python 2_metrics.py \\
+        --checkpoints $CHECKPOINTS \\
+        --input_dir $OUTPUT_DIR_GENERATION \\
+        --output_dir $OUTPUT_DIR_GENERATION
+done
 """
 
 # submit.sh 的模板
