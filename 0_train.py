@@ -13,6 +13,7 @@ from transformers import AutoModelForCausalLM, BitsAndBytesConfig, AutoTokenizer
 from transformers import LlamaTokenizer
 from trl import SFTTrainer
 import argparse
+from datasets import Dataset
 
 def read_argument():
     parser = argparse.ArgumentParser()
@@ -77,13 +78,33 @@ def formatting_func(example):
 #     #     trainingset += formatted_data
 #     return trainingset.shuffle(seed=42).map(formatting_func)
 
+def file_2_dataset(filename):
+    # 读取数据
+    all_data = []
+    with open(filename, 'r') as file:
+        for line in file:
+            data = json.loads(line)
+            all_data.append(data)
+
+    # 转换数据格式：从列表形式转为字典形式，每个键对应一列数据
+    data_columns = {key: [] for key in all_data[0].keys()}  # 初始化字典，假设所有行都具有相同的键
+    for item in all_data:
+        for key in item:
+            data_columns[key].append(item[key])
+
+    # 创建数据集
+    dataset = Dataset.from_dict(data_columns)
+    return dataset
+
+
 def prepare_data(args):
     files = args.sourcefiles.split(',')
     # print(files)
     print('3'*1000)
     # Load datasets
-    datasets = [load_dataset('json', data_files='datasets/'+file+'.json')['train'] for file in files]
-    print('4'*1000)
+    # datasets = [load_dataset('json', data_files='datasets/'+file+'.json')['train'] for file in files]
+    datasets = [file_2_dataset('datasets/'+file+'.json') for file in files]
+
     if len(datasets) == 1:
         trainingset = datasets[0]
     else:
