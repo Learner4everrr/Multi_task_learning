@@ -79,12 +79,10 @@ def formatting_func(example):
 
 def prepare_data(args):
     files = args.sourcefiles.split(',')
-    print('3'*1000)
-    print(files)
+    # print(files)
     
     # Load datasets
     datasets = [load_dataset('json', data_files='datasets/'+file+'.json')['train'] for file in files]
-    print('4'*1000)
     if len(datasets) == 1:
         trainingset = datasets[0]
     else:
@@ -199,10 +197,10 @@ def train_model(args, trainingset):
 
 def main():
     args = read_argument()
-    print('1'*1000)
+    # print('1'*1000)
     # print(args)
     trainingset = prepare_data(args)
-    print('2'*1000)
+    # print('2'*1000)
     print(len(trainingset))
     train_model(args, trainingset)
 
