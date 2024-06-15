@@ -12,6 +12,7 @@ if args.listname == 'all':
         "NER_bc2gm", "NER_bc4chemd", "NER_bc5cdr", \
         "TC_ade", "TC_healthadvice", "TC_pubmed20krct"
     ]
+    off_set = 0
 elif args.listname == 'RE':
     pre_input_files = [
         "RE_BioRED", "RE_DDI", "RE_git"
@@ -112,7 +113,7 @@ sh {run_script} > result
 
 # 创建.sh文件
 
-for i, input_files in enumerate(input_files_list, 1):
+for i, input_files in enumerate(input_files_list[6], 1):
     run_filename = f"run_{i+off_set}.sh"
     submit_filename = f"job_{i+off_set}.sh"
     

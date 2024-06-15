@@ -52,7 +52,7 @@ def com_res_gold(filename):
                 gold.add(g)
 
 
-            try: # 有些句子太长了，就跳过
+            try: # 有些句子太长了，就跳过 
                 predictions = line["predicted"].split("\n\n### Response: \n")[1].split("\n")[0].strip()
             except IndexError:
                 continue  # 如果发生错误，跳过当前循环
