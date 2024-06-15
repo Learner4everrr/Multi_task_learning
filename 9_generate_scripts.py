@@ -13,26 +13,31 @@ if args.listname == 'all':
         "TC_ade", "TC_healthadvice", "TC_pubmed20krct"
     ]
     off_set = 0
+    output_dir = ""
 elif args.listname == 'RE':
     pre_input_files = [
         "RE_BioRED", "RE_DDI", "RE_git"
     ]
     off_set = 20
+    output_dir = "RE//"
 elif args.listname == 'EE':
     pre_input_files = [
         "EE_genia2011", "EE_phee", "EE_genia2013"
     ]
     off_set = 30
+    output_dir = "EE//"
 elif args.listname == 'NER':
     pre_input_files = [
         "NER_bc2gm", "NER_bc4chemd", "NER_bc5cdr"
     ]
     off_set = 40
+    output_dir = "NER//"
 elif args.listname == 'TC':
     pre_input_files = [
         "TC_ade", "TC_healthadvice", "TC_pubmed20krct"
     ]
     off_set = 50
+    output_dir = "TC//"
 else:
     print('no valid input for list name\n'*10)
 
@@ -64,7 +69,7 @@ MAX_SEQ_LENGTH=4096
 CHECKPOINTS=$(seq $SAVE_STEPS $SAVE_STEPS $MAX_STEPS | paste -sd, -)
 IFS=',' read -ra FILES <<< "$INPUT_FILES"
 base_file=$(echo $INPUT_FILES | sed -E 's/[^,]*_([^,]*)/\\1/g' | tr ',' '_')
-OUTPUT_DIR="saved_models/${{MODEL_NAME##*/}}_${{base_file}}"
+OUTPUT_DIR="saved_models/{output_dir}${{MODEL_NAME##*/}}_${{base_file}}"
 
 python 0_train.py \\
     --sourcefile $TRAINING_FILES \\
@@ -113,13 +118,13 @@ sh {run_script} > result
 
 # 创建.sh文件
 
-for i, input_files in enumerate(input_files_list[:12], 1):
+for i, input_files in enumerate(input_files_list, 1):
     run_filename = f"run_{i+off_set}.sh"
     submit_filename = f"job_{i+off_set}.sh"
     
     # 生成 run.sh 文件
     with open(run_filename, 'w') as f:
-        f.write(run_template.format(input_files=input_files))
+        f.write(run_template.format(input_files=input_files, output_dir=output_dir))
     
     # 生成 submit.sh 文件
     with open(submit_filename, 'w') as f:
