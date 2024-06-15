@@ -100,10 +100,10 @@ for FILE in "${{FILES[@]}}"; do
 done
 """
 
-# submit.sh 的模板
+# submit.sh 的模板 dos-chs,
 submit_template = """#!/bin/bash
 #SBATCH --nodes=1
-#SBATCH -p dos-chs,a100-4,agsmall,ag2tb,a100-8,amdsmall,amdlarge,amd512,amd2tb
+#SBATCH -p a100-4,agsmall,ag2tb,a100-8,amdsmall,amdlarge,amd512,amd2tb
 #SBATCH --gres=gpu:a100:1
 #SBATCH --mem=150g
 #SBATCH --time=24:00:00
