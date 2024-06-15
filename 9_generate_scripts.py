@@ -19,25 +19,25 @@ elif args.listname == 'RE':
         "RE_BioRED", "RE_DDI", "RE_git"
     ]
     off_set = 20
-    output_dir = "RE//"
+    output_dir = "RE/"
 elif args.listname == 'EE':
     pre_input_files = [
         "EE_genia2011", "EE_phee", "EE_genia2013"
     ]
     off_set = 30
-    output_dir = "EE//"
+    output_dir = "EE/"
 elif args.listname == 'NER':
     pre_input_files = [
         "NER_bc2gm", "NER_bc4chemd", "NER_bc5cdr"
     ]
     off_set = 40
-    output_dir = "NER//"
+    output_dir = "NER/"
 elif args.listname == 'TC':
     pre_input_files = [
         "TC_ade", "TC_healthadvice", "TC_pubmed20krct"
     ]
     off_set = 50
-    output_dir = "TC//"
+    output_dir = "TC/"
 else:
     print('no valid input for list name\n'*10)
 
