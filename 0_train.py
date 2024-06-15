@@ -80,6 +80,7 @@ def formatting_func(example):
 def prepare_data(args):
     files = args.sourcefiles.split(',')
     print('3'*1000)
+    print(files)
     
     # Load datasets
     datasets = [load_dataset('json', data_files='datasets/'+file+'.json')['train'] for file in files]
