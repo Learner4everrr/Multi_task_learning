@@ -106,26 +106,33 @@ def gen(input_test_file_name, save_file_name, model, tokenizer):
   max_new_tokens = get_max_new_tokens(input_test_file_name)
 
   fw=open(save_file_name,"w")
-  i=0
+  
+  all_data = []
   with open('datasets/'+input_test_file_name+'.json',"r",encoding="utf-8") as fr:  #path+"test_chuck_final_ICL_t2.json"
-    data = json.load(fr)
-    data = sample_list(data, number_=1000)
-    for line in data:
-      instruction=line["instruction"]
-      sentence=line["inputsentence"]
-      ground_truth=line["response"]
-      predicted=make_inference(instruction,max_new_tokens,sentence)
-      i=i+1
-      print(i)
-      
-      Dic_={}
-      Dic_["sentence"]=sentence
-      Dic_["ground_truth"]=ground_truth
-      Dic_["predicted"]=predicted
+    for line in fr.readlines():
+      line=line.strip()
+      data = json.loads(line)
+      if isinstance(data, dict):
+        all_data.append(data)
+  data = sample_list(all_data, number_=1000)
 
-      fw.write(json.dumps(Dic_))
-      fw.flush()
-      fw.write("\n")
+  i=0
+  for line in data:
+    instruction=line["instruction"]
+    sentence=line["inputsentence"]
+    ground_truth=line["response"]
+    predicted=make_inference(instruction,max_new_tokens,sentence)
+    i=i+1
+    print(i)
+    
+    Dic_={}
+    Dic_["sentence"]=sentence
+    Dic_["ground_truth"]=ground_truth
+    Dic_["predicted"]=predicted
+
+    fw.write(json.dumps(Dic_))
+    fw.flush()
+    fw.write("\n")
 
   fw.close()
   print(datetime.datetime.now())
