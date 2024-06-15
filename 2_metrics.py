@@ -51,7 +51,12 @@ def com_res_gold(filename):
             for g in gold_t:
                 gold.add(g)
 
-            predictions=line["predicted"].split("\n\n### Response: \n")[1].split("\n")[0].strip()
+
+            try: # 有些句子太长了，就跳过
+                predictions = line["predicted"].split("\n\n### Response: \n")[1].split("\n")[0].strip()
+            except IndexError:
+                continue  # 如果发生错误，跳过当前循环
+            # predictions=line["predicted"].split("\n\n### Response: \n")[1].split("\n")[0].strip()
             predictions_t = predictions.split(", ")
             print(predictions_t)
             for prediction in predictions_t:
