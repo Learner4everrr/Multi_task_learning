@@ -14,6 +14,7 @@ from transformers import LlamaTokenizer
 from trl import SFTTrainer
 import argparse
 from datasets import Dataset
+import random
 
 def read_argument():
     parser = argparse.ArgumentParser()
