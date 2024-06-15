@@ -103,16 +103,21 @@ IFS=',' read -ra FILES <<< "$INPUT_FILES"
 base_file=$(echo $INPUT_FILES | sed -E 's/[^,]*_([^,]*)/\\1/g' | tr ',' '_')
 OUTPUT_DIR="saved_models/{output_dir}${{MODEL_NAME##*/}}_${{base_file}}"
 
-python 0_train.py \\
-    --sourcefile $TRAINING_FILES \\
-    --outputdir $OUTPUT_DIR \\
-    --model_name $MODEL_NAME \\
-    --max_steps $MAX_STEPS \\
-    --save_steps $SAVE_STEPS \\
-    --batch_size $BATCH_SIZE \\
-    --gradient_accumulation_steps $GRADIENT_ACCUMULATION_STEPS \\
-    --learning_rate $LEARNING_RATE \\
-    --max_seq_length $MAX_SEQ_LENGTH
+echo "Starting training"
+
+# python 0_train.py \\
+#     --sourcefile $TRAINING_FILES \\
+#     --outputdir $OUTPUT_DIR \\
+#     --model_name $MODEL_NAME \\
+#     --max_steps $MAX_STEPS \\
+#     --save_steps $SAVE_STEPS \\
+#     --batch_size $BATCH_SIZE \\
+#     --gradient_accumulation_steps $GRADIENT_ACCUMULATION_STEPS \\
+#     --learning_rate $LEARNING_RATE \\
+#     --max_seq_length $MAX_SEQ_LENGTH
+
+wait
+echo "Starting the generation and metrics scripts"
 
 for FILE in "${{FILES[@]}}"; do
     test_file="${{FILE}}_test"
