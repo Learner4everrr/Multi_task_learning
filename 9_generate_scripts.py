@@ -38,7 +38,7 @@ else:
 
 # 生成所有组合
 input_files_list = []
-for i in range(2, len(pre_input_files) + 1):
+for i in range(1, len(pre_input_files) + 1):
     for combination in itertools.combinations(pre_input_files, i):
         input_files_list.append(",".join(combination))
 
@@ -66,16 +66,16 @@ IFS=',' read -ra FILES <<< "$INPUT_FILES"
 base_file=$(echo $INPUT_FILES | sed -E 's/[^,]*_([^,]*)/\\1/g' | tr ',' '_')
 OUTPUT_DIR="saved_models/${{MODEL_NAME##*/}}_${{base_file}}"
 
-# python 0_train.py \\
-#     --sourcefile $TRAINING_FILES \\
-#     --outputdir $OUTPUT_DIR \\
-#     --model_name $MODEL_NAME \\
-#     --max_steps $MAX_STEPS \\
-#     --save_steps $SAVE_STEPS \\
-#     --batch_size $BATCH_SIZE \\
-#     --gradient_accumulation_steps $GRADIENT_ACCUMULATION_STEPS \\
-#     --learning_rate $LEARNING_RATE \\
-#     --max_seq_length $MAX_SEQ_LENGTH
+python 0_train.py \\
+    --sourcefile $TRAINING_FILES \\
+    --outputdir $OUTPUT_DIR \\
+    --model_name $MODEL_NAME \\
+    --max_steps $MAX_STEPS \\
+    --save_steps $SAVE_STEPS \\
+    --batch_size $BATCH_SIZE \\
+    --gradient_accumulation_steps $GRADIENT_ACCUMULATION_STEPS \\
+    --learning_rate $LEARNING_RATE \\
+    --max_seq_length $MAX_SEQ_LENGTH
 
 for FILE in "${{FILES[@]}}"; do
     test_file="${{FILE}}_test"
@@ -113,7 +113,7 @@ sh {run_script} > result
 
 # 创建.sh文件
 
-for i, input_files in enumerate(input_files_list[6], 1):
+for i, input_files in enumerate(input_files_list[:12], 1):
     run_filename = f"run_{i+off_set}.sh"
     submit_filename = f"job_{i+off_set}.sh"
     
