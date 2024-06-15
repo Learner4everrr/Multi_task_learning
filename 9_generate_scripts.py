@@ -1,8 +1,11 @@
 import itertools
 import argparse
+import re
+from itertools import combinations, groupby, product
+
 
 parser = argparse.ArgumentParser()     
-parser.add_argument('--listname', type=str, default='all', help='List number')
+parser.add_argument('--listname', type=str, default='xxx', help='List number')
 args = parser.parse_args()
 
 if args.listname == 'all':
@@ -46,6 +49,35 @@ input_files_list = []
 for i in range(1, len(pre_input_files) + 1):
     for combination in itertools.combinations(pre_input_files, i):
         input_files_list.append(",".join(combination))
+
+
+# pre_input_files = [
+#     "RE_BioRED", "RE_DDI", "RE_git", \
+#     "EE_genia2011", "EE_phee", "EE_genia2013", \
+#     "NER_bc2gm", "NER_bc4chemd", "NER_bc5cdr", \
+#     "TC_ade", "TC_healthadvice", "TC_pubmed20krct"
+# ]
+
+# # Function to extract category
+# def get_category(file_name):
+#     return re.match(r'^[A-Z]+_', file_name).group(0)
+
+# # Group files by category
+# category_dict = {}
+# for file in pre_input_files:
+#     category = get_category(file)
+#     if category not in category_dict:
+#         category_dict[category] = []
+#     category_dict[category].append(file)
+
+# # Generate all combinations of files from different categories
+# input_files_list = []
+# for cat1, files1 in category_dict.items():
+#     for cat2, files2 in category_dict.items():
+#         if cat1 != cat2:
+#             for combination in product(files1, files2):
+#                 input_files_list.append(combination)
+
 
 
 run_template  = """#!/bin/bash
