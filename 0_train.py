@@ -197,8 +197,10 @@ def train_model(args, trainingset):
 
 def main():
     args = read_argument()
+    print('1'*1000)
     # print(args)
     trainingset = prepare_data(args)
+    print('2'*1000)
     print(len(trainingset))
     train_model(args, trainingset)
 
