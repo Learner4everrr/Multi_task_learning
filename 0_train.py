@@ -79,10 +79,11 @@ def formatting_func(example):
 
 def prepare_data(args):
     files = args.sourcefiles.split(',')
+    print('3'*1000)
     
     # Load datasets
     datasets = [load_dataset('json', data_files='datasets/'+file+'.json')['train'] for file in files]
-    
+    print('4'*1000)
     if len(datasets) == 1:
         trainingset = datasets[0]
     else:
@@ -94,7 +95,7 @@ def prepare_data(args):
         
         # Concatenate sampled datasets
         trainingset = concatenate_datasets(sampled_datasets)
-
+    print('4'*1000)
     # Shuffle and format the final dataset
     return trainingset.shuffle(seed=42).map(formatting_func)
 
