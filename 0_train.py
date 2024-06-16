@@ -102,7 +102,6 @@ def file_2_dataset(filename):
 def prepare_data(args):
     files = args.sourcefiles.split(',')
     # print(files)
-    print('3'*1000)
     # Load datasets
     # datasets = [load_dataset('json', data_files='datasets/'+file+'.json')['train'] for file in files]
     datasets = [file_2_dataset('datasets/'+file+'.json') for file in files]
@@ -139,7 +138,7 @@ def prepare_data(args):
         
         # Concatenate sampled datasets
         trainingset = concatenate_datasets(sampled_datasets)
-    print('4'*1000)
+
     # Shuffle and format the final dataset
     return trainingset.shuffle(seed=42).map(formatting_func)
 
@@ -237,17 +236,15 @@ def train_model(args, trainingset):
 
 
     supervised_finetuning_trainer.train()
-    print('8'*1000)
 
 
 
 def main():
     args = read_argument()
-    print('1'*1000)
     # print(args)
     trainingset = prepare_data(args)
-    print('2'*1000)
     print(len(trainingset))
+
     train_model(args, trainingset)
 
 
@@ -255,11 +252,6 @@ def main():
 
 if __name__== '__main__':
     main()
-    print('9'*1000)
-    # exit()
     os.kill(os.getpid(), signal.SIGTERM)  # 发送终止信号到当前进程
-
-    # sys.exit()  # Ensure the process exits
-
 
 

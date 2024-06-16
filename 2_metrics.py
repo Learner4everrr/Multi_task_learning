@@ -6,11 +6,9 @@ import os
 
 def get_arguments():
     parser = argparse.ArgumentParser()
-    # parser.add_argument('--number', type=str, default='5000', help='checkpoint number')
     parser.add_argument('--checkpoints', type=str, default="['1000', '2000', '3000', '4000', '5000']", help='checkpoint list')
     parser.add_argument('--input_dir', type=str, default='Our_model/', help='dir for saving results')
     parser.add_argument('--output_dir', type=str, default='Our_model/', help='dir for saving results')
-    # parser.add_argument('--save_instruct', type=str, default='Llama2,2,EE...', help='model_name, epoch, training_set')
     args = parser.parse_args()
 
     if not os.path.exists(args.output_dir):
@@ -52,7 +50,7 @@ def com_res_gold(filename):
                 gold.add(g)
 
 
-            try: # 有些句子太长了，就跳过 
+            try: # 有些句子太长了，generate有问题，就跳过 
                 predictions = line["predicted"].split("\n\n### Response: \n")[1].split("\n")[0].strip()
             except IndexError:
                 continue  # 如果发生错误，跳过当前循环
