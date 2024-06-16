@@ -1,6 +1,7 @@
 import sys
 sys.path.append('utilities')
 import os
+import signal
 import torch
 import json
 import transformers
@@ -256,7 +257,9 @@ if __name__== '__main__':
     main()
     print('9'*1000)
     # exit()
-    sys.exit()  # Ensure the process exits
+    os.kill(os.getpid(), signal.SIGTERM)  # 发送终止信号到当前进程
+
+    # sys.exit()  # Ensure the process exits
 
 
 
