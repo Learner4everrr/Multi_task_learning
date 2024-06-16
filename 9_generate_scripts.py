@@ -41,12 +41,24 @@ elif args.listname == 'TC':
     ]
     off_set = 50
     output_dir = "TC/"
+elif args.listname == 'cross1':
+    pre_input_files = [
+        "RE_BioRED", "EE_genia2011", "NER_bc2gm", "TC_ade"
+    ]
+    off_set = 100
+    output_dir = args.listname + "/"
+elif args.listname == 'cross2':
+    pre_input_files = [
+        "RE_BioRED", "EE_genia2011", "NER_bc2gm", "TC_ade"
+    ]
+    off_set = 120
+    output_dir = args.listname + "/"
 else:
     print('no valid input for list name\n'*10)
 
 # 生成所有组合
 input_files_list = []
-for i in range(1, len(pre_input_files) + 1):
+for i in range(2, len(pre_input_files) + 1):
     for combination in itertools.combinations(pre_input_files, i):
         input_files_list.append(",".join(combination))
 
