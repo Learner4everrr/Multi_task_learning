@@ -59,14 +59,34 @@ elif args.listname == 'cross3':
     ]
     off_set = 140
     output_dir = args.listname + "/"
+elif args.listname == 'all_each_group':
+    pre_input_files = [
+        "RE_BioRED", "RE_DDI", "RE_git", 
+        "EE_genia2011", "EE_phee", "EE_genia2013", 
+        "NER_bc2gm", "NER_bc4chemd", "NER_bc5cdr", 
+        "TC_ade", "TC_healthadvice", "TC_pubmed20krct"
+    ]
+
+    # Group the files into chunks of three
+    groups = [pre_input_files[i:i + 3] for i in range(0, len(pre_input_files), 3)]
+
+    # Generate all combinations with one file from each group
+    all_combinations = list(itertools.product(*groups))
+
+    # Convert each combination tuple to a comma-separated string
+    input_files_list = [",".join(comb) for comb in all_combinations]
+    off_set = 160
+    output_dir = args.listname + "/"
 else:
     print('no valid input for list name\n'*10)
 
 # 生成所有组合
-input_files_list = []
-for i in range(2, len(pre_input_files) + 1):
-    for combination in itertools.combinations(pre_input_files, i):
-        input_files_list.append(",".join(combination))
+# input_files_list = []
+# for i in range(2, len(pre_input_files) + 1):
+#     for combination in itertools.combinations(pre_input_files, i):
+#         input_files_list.append(",".join(combination))
+
+
 
 
 # pre_input_files = [
@@ -174,7 +194,7 @@ done
 
 # 创建.sh文件
 
-for i, input_files in enumerate(input_files_list[:7], 1):
+for i, input_files in enumerate(input_files_list, 1):
     run_filename = f"run_{i+off_set}.sh"
     submit_filename = f"job_{i+off_set}.sh"
     
