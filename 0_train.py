@@ -236,6 +236,7 @@ def train_model(args, trainingset):
 
 
     supervised_finetuning_trainer.train()
+    print('8'*1000)
 
 
 
@@ -253,7 +254,7 @@ def main():
 
 if __name__== '__main__':
     main()
-
+    print('9'*1000)
     exit()
 
 
