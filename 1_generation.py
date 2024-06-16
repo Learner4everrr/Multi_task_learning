@@ -86,11 +86,13 @@ def make_inference(instruction, max_new_tokens, context = None):
       # print(results)
       # print("---- NON-INSTRUCT-TUNED-MODEL ----")
 
+
 def sample_list(input_list, number_=1000):
     if len(input_list) > number_:
         return random.sample(input_list, number_)
     else:
         return input_list
+
 
 def get_max_new_tokens(file_name):
   if 'NER_' in file_name:
@@ -112,6 +114,7 @@ def gen(input_test_file_name, save_file_name, model, tokenizer):
     for line in fr.readlines():
       line=line.strip()
       data = json.loads(line)
+      print('reading input file.....')
       if isinstance(data, dict):
         all_data.append(data)
   data = sample_list(all_data, number_=1000)
