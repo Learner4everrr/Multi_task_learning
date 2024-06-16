@@ -49,9 +49,15 @@ elif args.listname == 'cross1':
     output_dir = args.listname + "/"
 elif args.listname == 'cross2':
     pre_input_files = [
-        "RE_BioRED", "EE_genia2011", "NER_bc2gm", "TC_ade"
+        "RE_DDI", "EE_phee", "NER_bc4chemd", "TC_healthadvice"
     ]
     off_set = 120
+    output_dir = args.listname + "/"
+elif args.listname == 'cross3':
+    pre_input_files = [
+        "RE_git", "EE_genia2013", "NER_bc5cdr", "TC_pubmed20krct"
+    ]
+    off_set = 140
     output_dir = args.listname + "/"
 else:
     print('no valid input for list name\n'*10)
