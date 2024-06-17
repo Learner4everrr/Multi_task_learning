@@ -114,7 +114,7 @@ def gen(input_test_file_name, save_file_name, model, tokenizer):
     for line in fr.readlines():
       line=line.strip()
       data = json.loads(line)
-      print('reading input file.....')
+      # print('reading input file.....')
       if isinstance(data, dict):
         all_data.append(data)
   data = sample_list(all_data, number_=1000)
